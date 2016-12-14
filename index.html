@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Markdown Previewer</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div class="navBar">
+		<div class="container">
+			<span class="title"><strong>MarkDown</strong> Previewer</span>
+			<span class="name">Built by <span class="red">Nelson</span></span>
+		</div>
+	</div>
+
+	<div class="textContain">
+		<textarea v-model="markdown" placeholder="Start typing markdown text here and watch it update live!"></textarea>
+
+		<div class="markdown">{{ markdown | convert }}</div>
+	</div>
+
+	<div class="footer">Built by <span class="red">Nelson</span></div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.5.1/showdown.min.js"></script>
+	<script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
+
+	<script>
+		var mDown = new Vue({
+			el: '.textContain',
+			data: {
+				markdown: ''
+			},
+			filters: {
+				convert: function(markdown) {
+					var converter = new showdown.Converter();
+					return document.querySelector('.markdown').innerHTML = converter.makeHtml(markdown);
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
